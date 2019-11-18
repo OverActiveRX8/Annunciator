@@ -1,76 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////////	 
-//本程序只供学习使用，未经作者许可，不得用于其它任何用途
-//中景园电子
-//店铺地址：http://shop73023976.taobao.com/?spm=2013.1.0.0.M4PqC2
-//
-//  文 件 名   : main.c
-//  版 本 号   : v2.0
-//  作    者   : HuangKai
-//  生成日期   : 2014-0101
-//  最近修改   : 
-//  功能描述   : OLED 4接口演示例程(51系列)
-//              说明: 
-//              ----------------------------------------------------------------
-//              GND    电源地
-//              VCC  接5V或3.3v电源
-//              D0   接PD6（SCL）
-//              D1   接PD7（SDA）
-//              RES  接PD4
-//              DC   接PD5
-//              CS   接PD3               
-//              ----------------------------------------------------------------
-// 修改历史   :
-// 日    期   : 
-// 作    者   : HuangKai
-// 修改内容   : 创建文件
-//版权所有，盗版必究。
-//Copyright(C) 中景园电子2014/3/16
-//All rights reserved
-//******************************************************************************/
-
 #include "oled.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_spi.h"
-//#include "stdlib.h"
 #include "oledfont.h"  	
-extern SPI_HandleTypeDef hspi1;
-//#include "delay.h"
-//OLED的显存
-//存放格式如下.
-//[0]0 1 2 3 ... 127	
-//[1]0 1 2 3 ... 127	
-//[2]0 1 2 3 ... 127	
-//[3]0 1 2 3 ... 127	
-//[4]0 1 2 3 ... 127	
-//[5]0 1 2 3 ... 127	
-//[6]0 1 2 3 ... 127	
-//[7]0 1 2 3 ... 127 			   
 
+//SPI3 Interface
+extern SPI_HandleTypeDef hspi3;
 
-//向SSD1106写入一个字节。
-//dat:要写入的数据/命令
-//cmd:数据/命令标志 0,表示命令;1,表示数据;
-//void OLED_WR_Byte(u8 dat,u8 cmd)
-//{	
-//	u8 i;			  
-//	if(cmd)
-//	  OLED_DC_Set();
-//	else 
-//	  OLED_DC_Clr();		  
-//	OLED_CS_Clr();
-//	for(i=0;i<8;i++)
-//	{			  
-//		OLED_SCLK_Clr();
-//		if(dat&0x80)
-//		   OLED_SDIN_Set();
-//		else 
-//		   OLED_SDIN_Clr();
-//		OLED_SCLK_Set();
-//		dat<<=1;   
-//	}				 		  
-//	OLED_CS_Set();
-//	OLED_DC_Set();   	  
-//} 
 void OLED_WR_Byte(u8 dat,u8 cmd)
 {	
 	  
@@ -79,16 +14,18 @@ void OLED_WR_Byte(u8 dat,u8 cmd)
 	else 
 	  OLED_DC_Clr();		  
 	OLED_CS_Clr();
-  HAL_SPI_Transmit( &hspi1,&dat, 1,1000);			 		  
+  HAL_SPI_Transmit(&hspi3, &dat, 1, 1000);			 		  
 	OLED_CS_Set();
 	OLED_DC_Set();   	  
-} 
-	void OLED_Set_Pos(unsigned char x, unsigned char y) 
+}
+
+void OLED_Set_Pos(unsigned char x, unsigned char y) 
 { 
 	OLED_WR_Byte(0xb0+y,OLED_CMD);
 	OLED_WR_Byte(((x&0xf0)>>4)|0x10,OLED_CMD);
 	OLED_WR_Byte((x&0x0f)|0x01,OLED_CMD); 
-}   	  
+}   
+
 //开启OLED显示    
 void OLED_Display_On(void)
 {
@@ -96,13 +33,15 @@ void OLED_Display_On(void)
 	OLED_WR_Byte(0X14,OLED_CMD);  //DCDC ON
 	OLED_WR_Byte(0XAF,OLED_CMD);  //DISPLAY ON
 }
+
 //关闭OLED显示     
 void OLED_Display_Off(void)
 {
 	OLED_WR_Byte(0X8D,OLED_CMD);  //SET DCDC命令
 	OLED_WR_Byte(0X10,OLED_CMD);  //DCDC OFF
 	OLED_WR_Byte(0XAE,OLED_CMD);  //DISPLAY OFF
-}		   			 
+}		
+
 //清屏函数,清完屏,整个屏幕是黑色的!和没点亮一样!!!	  
 void OLED_Clear(void)  
 {  
@@ -115,7 +54,6 @@ void OLED_Clear(void)
 		for(n=0;n<128;n++)OLED_WR_Byte(0,OLED_DATA); 
 	} //更新显示
 }
-
 
 //在指定位置显示一个字符,包括部分字符
 //x:0~127
@@ -140,9 +78,9 @@ void OLED_ShowChar(u8 x,u8 y,u8 chr)
 				OLED_Set_Pos(x,y+1);
 				for(i=0;i<6;i++)
 				OLED_WR_Byte(F6x8[c][i],OLED_DATA);
-				
 			}
 }
+
 //m^n函数
 u32 oled_pow(u8 m,u8 n)
 {
@@ -150,6 +88,7 @@ u32 oled_pow(u8 m,u8 n)
 	while(n--)result*=m;    
 	return result;
 }				  
+
 //显示2个数字
 //x,y :起点坐标	 
 //len :数字的位数
@@ -175,6 +114,7 @@ void OLED_ShowNum(u8 x,u8 y,u32 num,u8 len,u8 size)
 	 	OLED_ShowChar(x+(size/2)*t,y,temp+'0'); 
 	}
 } 
+
 //显示一个字符号串
 void OLED_ShowString(u8 x,u8 y,u8 *chr)
 {
@@ -186,6 +126,7 @@ void OLED_ShowString(u8 x,u8 y,u8 *chr)
 			j++;
 	}
 }
+
 //显示汉字
 void OLED_ShowCHinese(u8 x,u8 y,u8 no)
 {      			    
@@ -203,6 +144,7 @@ void OLED_ShowCHinese(u8 x,u8 y,u8 no)
 				adder+=1;
       }					
 }
+
 /***********功能描述：显示显示BMP图片128×64起始点坐标(x,y),x的范围0～127，y为页的范围0～7*****************/
 void OLED_DrawBMP(unsigned char x0, unsigned char y0,unsigned char x1, unsigned char y1,unsigned char BMP[])
 { 	
@@ -227,9 +169,9 @@ void OLED_Init(void)
 { 	
  
   OLED_RST_Set();
-		HAL_Delay(120);// 延时100ms秒
+	HAL_Delay(120);// 延时100ms秒
 	OLED_RST_Clr();
-HAL_Delay(120);// 延时100ms秒
+  HAL_Delay(120);// 延时100ms秒
 	OLED_RST_Set(); 
 					  
 	OLED_WR_Byte(0xAE,OLED_CMD);//--turn off oled panel

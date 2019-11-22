@@ -35,10 +35,10 @@ void showDistance(int volLevel, float realDis)
 	float distance = distanceArray[volLevel];
 	
 	//Show Voltage Level & Distance
-	tempString = (u8 *)float2string(realDis, 1, "m");
+	tempString = (u8 *)float2string(realDis, 1, "m ");
 	OLED_ShowString(40,4,tempString);
 	free(tempString);
-	tempString = (u8 *)int2String(voltage,3,"kV");
+	tempString = (u8 *)int2String(voltage,3,"kV ");
 	OLED_ShowString(40,2,tempString);
 	free(tempString);
 	

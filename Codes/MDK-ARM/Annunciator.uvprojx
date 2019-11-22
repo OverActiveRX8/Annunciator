@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx,USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;   ../Drivers/STM32F4xx_HAL_Driver/Inc;   ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;   ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;   ../Drivers/CMSIS/Include;   ..\..\Librarys\HCSR04;   ..\..\Librarys\OLED12864;   ..\..\Librarys\Sys\Inc;   ..\..\Librarys\buzzer</IncludePath>
+              <IncludePath>../Core/Inc;    ../Drivers/STM32F4xx_HAL_Driver/Inc;    ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;    ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;    ../Drivers/CMSIS/Include;    ..\..\Librarys\HCSR04;    ..\..\Librarys\OLED12864;    ..\..\Librarys\Sys\Inc;    ..\..\Librarys\buzzer</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

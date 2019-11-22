@@ -131,11 +131,15 @@ int main(void)
 			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_6,GPIO_PIN_RESET);
 			delay_us(100);
 		  HAL_TIM_IC_Start_IT(&htim2,TIM_CHANNEL_2);
-		}
+		}				
 		showDistance(voltageLevel, distance);
-		freqAdjust(voltageLevel, distance);	
-		delay_ms(250);
-		OLED_Clear();
+		freqAdjust(voltageLevel, distance);		
+//		OLED_ShowString(0,0,(u8 *)"Alarm System");
+//	  OLED_ShowString(0,2,(u8 *)"Vol:");
+//	  OLED_ShowString(0,4,(u8 *)"Dis:");
+//	  OLED_ShowString(0,6,(u8 *)"Sta:");
+		delay_ms(250); 
+//		OLED_Clear();	
   }
   /* USER CODE END 3 */
 }

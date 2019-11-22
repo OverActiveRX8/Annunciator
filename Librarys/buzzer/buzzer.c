@@ -8,15 +8,21 @@ void freqAdjust(int level, float distance)
 {
 	HAL_TIM_Base_Start_IT(&htim14);
 	float last = buzzerPeriod;
-	float temp = distanceArray[level]/distance;
+	float temp = distance/distanceArray[level];
 	if(temp >= 2.0f)     		
 		silent();
-	else if(temp >= 1.5f)		//2KHz
-		buzzerPeriod = 5;
-	else if(temp >= 1.0f)   //3.5KHz
-		buzzerPeriod = 3;						
-	else 									  //5KHz
-		buzzerPeriod = 2;
+	else if(temp >= 1.5f)		
+		buzzerPeriod = 50;
+	else if(temp >= 1.25f)		
+		buzzerPeriod = 40;
+	else if(temp >= 1.0f)   
+		buzzerPeriod = 30;						
+	else if(temp >= 0.75f)								
+		buzzerPeriod = 25;
+	else if(temp >= 0.5f)
+		buzzerPeriod = 20;
+	else
+		buzzerPeriod = 15;
 	if(last != buzzerPeriod)
 		__HAL_TIM_SetCounter(&htim14, 0);
 }

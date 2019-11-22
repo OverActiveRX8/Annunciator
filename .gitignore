@@ -5,3 +5,7 @@
 .o
 .crf
 .d
+
+# others
+.zip
+.rar

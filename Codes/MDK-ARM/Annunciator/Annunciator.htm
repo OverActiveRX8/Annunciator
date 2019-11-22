@@ -3,7 +3,7 @@
 <title>Static Call Graph - [Annunciator\Annunciator.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Annunciator\Annunciator.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Nov 22 10:18:12 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Nov 22 14:52:08 2019
 <BR><P>
 <H3>Maximum Stack Usage =        176 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1124,7 +1124,7 @@ Global Symbols
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setVoltage
 </UL>
 
-<P><STRONG><a name="[c1]"></a>freqAdjust</STRONG> (Thumb, 122 bytes, Stack size 24 bytes, buzzer.o(i.freqAdjust))
+<P><STRONG><a name="[c1]"></a>freqAdjust</STRONG> (Thumb, 164 bytes, Stack size 24 bytes, buzzer.o(i.freqAdjust))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = freqAdjust &rArr; silent
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_Base_Start_IT
@@ -1149,7 +1149,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;float2string
 </UL>
 
-<P><STRONG><a name="[5b]"></a>main</STRONG> (Thumb, 170 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[5b]"></a>main</STRONG> (Thumb, 166 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = main &rArr; showDistance &rArr; OLED_ShowString &rArr; OLED_ShowChar &rArr; OLED_Set_Pos &rArr; OLED_WR_Byte &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;freqAdjust

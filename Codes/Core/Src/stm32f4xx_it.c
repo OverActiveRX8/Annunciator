@@ -23,6 +23,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,7 +43,12 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+bool icState = false;
+int icValue = 0;
+uint8_t overCounter = 0;
+extern float distance;
+int i;
+extern int voltageLevel;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -56,7 +62,9 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim7;
+extern TIM_HandleTypeDef htim14;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -198,6 +206,48 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief This function handles EXTI line4 interrupt.
+  */
+void EXTI4_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI4_IRQn 0 */
+
+  /* USER CODE END EXTI4_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);
+  /* USER CODE BEGIN EXTI4_IRQn 1 */
+
+  /* USER CODE END EXTI4_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM2 global interrupt.
+  */
+void TIM2_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM2_IRQn 0 */
+
+  /* USER CODE END TIM2_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim2);
+  /* USER CODE BEGIN TIM2_IRQn 1 */
+
+  /* USER CODE END TIM2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM8 trigger and commutation interrupts and TIM14 global interrupt.
+  */
+void TIM8_TRG_COM_TIM14_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM8_TRG_COM_TIM14_IRQn 0 */
+
+  /* USER CODE END TIM8_TRG_COM_TIM14_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim14);
+  /* USER CODE BEGIN TIM8_TRG_COM_TIM14_IRQn 1 */
+	beep();
+  /* USER CODE END TIM8_TRG_COM_TIM14_IRQn 1 */
+}
+
+/**
   * @brief This function handles TIM7 global interrupt.
   */
 void TIM7_IRQHandler(void)
@@ -207,11 +257,38 @@ void TIM7_IRQHandler(void)
   /* USER CODE END TIM7_IRQn 0 */
   HAL_TIM_IRQHandler(&htim7);
   /* USER CODE BEGIN TIM7_IRQn 1 */
-
+	overCounter ++;
   /* USER CODE END TIM7_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
-
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+	{
+	if(htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2)
+	{
+		if(!icState)
+		{
+			__HAL_TIM_SetCounter(&htim2, 0);																					//Reset IC counter
+			HAL_TIM_Base_Start_IT(&htim7);																						//Start Timer6 (Overload Counter)
+			TIM_RESET_CAPTUREPOLARITY(&htim2,TIM_CHANNEL_2);													
+			TIM_SET_CAPTUREPOLARITY(&htim2,TIM_CHANNEL_2,TIM_ICPOLARITY_FALLING);			//Reset Polarity
+			icState = true;																														//Toggle State
+		}
+		else
+		{
+			HAL_TIM_Base_Stop_IT(&htim7);																							//Stop Timer6 (Overload Counter)
+			__HAL_TIM_SetCounter(&htim7, 0);																					//Reset Timer6 Counter
+			icValue = 0;																															//Reset icValue
+			TIM_RESET_CAPTUREPOLARITY(&htim2,TIM_CHANNEL_2);
+			TIM_SET_CAPTUREPOLARITY(&htim2,TIM_CHANNEL_2,TIM_ICPOLARITY_RISING);			//Reset Polarity
+			icValue += HAL_TIM_ReadCapturedValue(&htim2, TIM_CHANNEL_2);							//Get IC Capture Value
+			icValue += overCounter * 0xFFFF;																						//Add Overload Value
+			//icValue *= 2;   																													//Transfer into us
+			overCounter = 0;																														//Reset Overload Counter
+			distance = (float)icValue/2000000*340;
+			icState = false;																		                      //Toggle State			
+			}
+		}
+	}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

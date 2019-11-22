@@ -78,6 +78,7 @@ void Error_Handler(void);
 #define ECHO_GPIO_Port GPIOB
 #define WakeUp_Pin GPIO_PIN_4
 #define WakeUp_GPIO_Port GPIOB
+#define WakeUp_EXTI_IRQn EXTI4_IRQn
 #define Button2_Pin GPIO_PIN_0
 #define Button2_GPIO_Port GPIOE
 /* USER CODE BEGIN Private defines */

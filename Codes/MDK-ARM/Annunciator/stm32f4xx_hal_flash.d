@@ -31,4 +31,3 @@ annunciator\stm32f4xx_hal_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx
 annunciator\stm32f4xx_hal_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 annunciator\stm32f4xx_hal_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 annunciator\stm32f4xx_hal_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-annunciator\stm32f4xx_hal_flash.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h

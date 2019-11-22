@@ -1,3 +1,14 @@
+/**  
+ * @Filename oled.c
+ * @Others 
+ *  OLED Pins:
+ * 	 D0  --- PC10 (SCL)
+ * 	 D1  --- PC12£¨SDA£©
+ * 	 RES --- PD1
+ *	 DC  --- PD3
+ * 	 CS  --- PD5       
+*/
+
 #include "oled.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_spi.h"

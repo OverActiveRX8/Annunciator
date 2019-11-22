@@ -22,11 +22,12 @@
 #include "main.h"
 #include "spi.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,7 +48,16 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+int voltageLevel = 0;
+int voltageArray[4] = {110, 220, 500, 750};
+float distanceArray[4] = {1.5f, 3.0f, 5.0f, 6.0f};
 
+int buzzerPeriod = 0;
+int buzzerCounter = 0;
+int sleepCounter = 0;
+float distance = 100;
+
+extern bool icState;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -93,8 +103,18 @@ int main(void)
   MX_SPI3_Init();
   MX_TIM2_Init();
   MX_TIM7_Init();
+  MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
-
+	delay_init(168);
+	
+	OLED_Init();
+	OLED_Clear();
+	voltageLevel = setVoltage();
+	
+	OLED_ShowString(0,0,(u8 *)"Alarm System");
+	OLED_ShowString(0,2,(u8 *)"Vol: N/A");
+	OLED_ShowString(0,4,(u8 *)"Dis: N/A");
+	OLED_ShowString(0,6,(u8 *)"Sta: N/A");
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -104,6 +124,18 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+		if(!icState)
+		{
+			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_6,GPIO_PIN_SET);
+			delay_us(10);
+			HAL_GPIO_WritePin(GPIOD,GPIO_PIN_6,GPIO_PIN_RESET);
+			delay_us(100);
+		  HAL_TIM_IC_Start_IT(&htim2,TIM_CHANNEL_2);
+		}
+		showDistance(voltageLevel, distance);
+		freqAdjust(voltageLevel, distance);	
+		delay_ms(250);
+		OLED_Clear();
   }
   /* USER CODE END 3 */
 }

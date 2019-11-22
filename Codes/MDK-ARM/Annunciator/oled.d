@@ -32,6 +32,6 @@ annunciator\oled.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
 annunciator\oled.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 annunciator\oled.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 annunciator\oled.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-annunciator\oled.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_usart.h
 annunciator\oled.o: D:\Programs\KEIL\Core\ARM\ARMCC\Bin\..\include\stdlib.h
+annunciator\oled.o: ..\..\Librarys\Sys\Inc\sys.h
 annunciator\oled.o: ..\..\Librarys\OLED12864\oledfont.h

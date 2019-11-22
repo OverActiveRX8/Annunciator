@@ -32,7 +32,9 @@
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN Private defines */
-
+#define s1 GPIOD,GPIO_PIN_7
+#define s2 GPIOE,GPIO_PIN_0
+#define buzzer GPIOA,GPIO_PIN_1
 /* USER CODE END Private defines */
 
 void MX_GPIO_Init(void);

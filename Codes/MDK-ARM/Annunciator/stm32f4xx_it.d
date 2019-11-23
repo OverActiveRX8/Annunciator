@@ -47,4 +47,13 @@ annunciator\stm32f4xx_it.o: ..\..\Librarys\buzzer\buzzer.h
 annunciator\stm32f4xx_it.o: ../Core/Inc/tim.h
 annunciator\stm32f4xx_it.o: ..\..\Librarys\Sys\Inc\sleep.h
 annunciator\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h
+annunciator\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+annunciator\stm32f4xx_it.o: ../Core/Inc/FreeRTOSConfig.h
+annunciator\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+annunciator\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+annunciator\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+annunciator\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+annunciator\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+annunciator\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+annunciator\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 annunciator\stm32f4xx_it.o: D:\Programs\KEIL\Core\ARM\ARMCC\Bin\..\include\stdbool.h

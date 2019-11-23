@@ -35,22 +35,22 @@ void showDistance(int volLevel, float realDis)
 	float distance = distanceArray[volLevel];
 	
 	//Show Voltage Level & Distance
-	tempString = (u8 *)float2string(realDis, 1, "m ");
+	tempString = (u8 *)float2string(realDis, 1, "m   ");
 	OLED_ShowString(40,4,tempString);
 	free(tempString);
-	tempString = (u8 *)int2String(voltage,3,"kV ");
+	tempString = (u8 *)int2String(voltage,3,"kV   ");
 	OLED_ShowString(40,2,tempString);
 	free(tempString);
 	
 	//Show Danger Level
 	float temp = realDis/distance;
-	if(temp >= 2.0f)
-		OLED_ShowString(40,6,(u8 *)"Safe  ");
-	else if(temp >= 1.5f)
-		OLED_ShowString(40,6,(u8 *)"Risk  ");
-	else if(temp >= 1.0f)
-		OLED_ShowString(40,6,(u8 *)"Danger");
+	if(temp >= 1.0f)
+		OLED_ShowString(40,6,(u8 *)"Safe   ");
+	else if(temp >= 0.6f)
+		OLED_ShowString(40,6,(u8 *)"Risk   ");
+	else if(temp >= 0.2f)
+		OLED_ShowString(40,6,(u8 *)"Danger ");
 	else 
-		OLED_ShowString(40,6,(u8 *)"Hazard");
+		OLED_ShowString(40,6,(u8 *)"Hazard ");
 }
 

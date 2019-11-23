@@ -1,0 +1,12 @@
+annunciator\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/list.c
+annunciator\list.o: D:\Programs\KEIL\Core\ARM\ARMCC\Bin\..\include\stdlib.h
+annunciator\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+annunciator\list.o: D:\Programs\KEIL\Core\ARM\ARMCC\Bin\..\include\stddef.h
+annunciator\list.o: D:\Programs\KEIL\Core\ARM\ARMCC\Bin\..\include\stdint.h
+annunciator\list.o: ../Core/Inc/FreeRTOSConfig.h
+annunciator\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+annunciator\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+annunciator\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+annunciator\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+annunciator\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+annunciator\list.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
